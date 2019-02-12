@@ -1,0 +1,42 @@
+/* Global  styles */
+@import '../../../sass/typography.scss';
+@import '../../../sass/border.scss';
+
+body {
+  margin: 0px;
+}
+
+#root {
+  width: 100%;
+  height: 100vh;
+}
+
+.app-root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  @include growl-typography;
+
+  .header {
+    flex: 0 0 5%;
+    @include app-border;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+  }
+
+  .body {
+    flex: 0 0 95%;
+    @include app-border;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+  }
+}

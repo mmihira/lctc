@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  lctc-postgres:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./postgres/
+    ports:
+      - 5432:5432
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: exampl
+    volumes:
+       - lctc_pd_db:/var/lib/postgresql/data
+    networks:
+       - lctc_net
+  pgadmin:
+    image: dpage/pgadmin4
+    links:
+      - lctc-postgres:lctc-postgres
+    environment:
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_DEFAULT_EMAIL: admin@x.com
+    ports:
+      - 5050:80
+    networks:
+      - lctc_net
+
+volumes:
+   lctc_pd_db:
+     driver: local
+networks:
+  lctc_net:
