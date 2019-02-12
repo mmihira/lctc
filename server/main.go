@@ -6,8 +6,8 @@ import (
 	"github.com/onrik/logrus/filename"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"net/http"
 	models "lctc/models"
+	"net/http"
 
 	mux "github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
@@ -31,16 +31,16 @@ func main() {
 	log.Print("Starting server")
 
 	var config_filename = flag.String("configfile", "", "Path to config")
-  flag.Parse()
+	flag.Parse()
 
-  if len(*config_filename) == 0 {
-    log.Print("Loading config from ./config.yml")
-    viper.SetConfigName("config")
-    viper.AddConfigPath(".")
-  } else {
-    log.Print("Loading config from ", *config_filename)
-    viper.SetConfigFile(*config_filename)
-  }
+	if len(*config_filename) == 0 {
+		log.Print("Loading config from ./config.yml")
+		viper.SetConfigName("config")
+		viper.AddConfigPath(".")
+	} else {
+		log.Print("Loading config from ", *config_filename)
+		viper.SetConfigFile(*config_filename)
+	}
 
 	viper.SetConfigType("yaml")
 	err := viper.ReadInConfig()
