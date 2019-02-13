@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
 	"github.com/jmoiron/sqlx"
@@ -47,9 +46,13 @@ func (this *TweetStream) crawl(db *sqlx.DB) {
 		Track:         []string{this.keyword},
 		StallWarnings: twitter.Bool(true),
 	}
-	stream, _ := client.Streams.Filter(params)
+	stream, err := client.Streams.Filter(params)
+  if err != nil {
+    log.Error(err);
+    panic("Error creating stream")
+  }
 	demux := twitter.NewSwitchDemux()
 	demux.Tweet = handleTweet(db)
 	demux.HandleChan(stream.Messages)
-	fmt.Println("ENDING")
+  log.Print("Twitter stream ending")
 }
