@@ -3,6 +3,7 @@ package main
 import (
 	_ "database/sql"
 	"flag"
+	"fmt"
 	"github.com/onrik/logrus/filename"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -17,7 +18,10 @@ import (
 func connectDb() *sqlx.DB {
 	db, err := sqlx.Connect(
 		"postgres",
-		"host=127.0.0.1 port=5432 user=postgres dbname=lctc password=exampl sslmode=disable",
+		fmt.Sprintf(
+      "host=%s port=%s user=postgres dbname=lctc password=exampl sslmode=disable",
+      viper.Get("PG_HOST_URL"),
+      viper.Get("PG_HOST_PORT")),
 	)
 	if err != nil {
 		log.Print(err)
@@ -42,6 +46,10 @@ func main() {
 		viper.SetConfigFile(*config_filename)
 	}
 
+	viper.SetDefault("PG_HOST_URL", "127.0.0.1")
+	viper.SetDefault("PG_HOST_PORT", "5432")
+	viper.BindEnv("PG_HOST_URL", "PG_HOST_URL")
+	viper.BindEnv("PG_HOST_PORT", "PG_HOST_PORT")
 	viper.SetConfigType("yaml")
 	err := viper.ReadInConfig()
 	if err != nil {
