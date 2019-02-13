@@ -1,6 +1,6 @@
 # lctc
 A toy project to explore using golang as an API backend.
-Display tweets from the twitter stream API.
+Displays tweets from the twitter stream API.
 
 We use :
 - Postgres (jmoiron/sqlx go adapter)
@@ -15,7 +15,7 @@ We use :
 
 ## Requirements
 
-You will go, docker and node.
+You will need go, docker and node.
 
 ## Config
 
