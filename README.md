@@ -33,22 +33,21 @@ Instructions are given for running locally
 
 Start up postgres               ` cd infra; docker-compose up -d; cd ..` <br>
 Build lctc dockerfile           ` cd server; docker build -t lctc:1.0 ./; cd ..` <br>
-Run lctc_server image. Replace <PATH_TO_CONFIG> with the path to the config file
-`
-	docker stop lctc_server;
-	docker rm lctc_server;
-	docker run \
-  	--name lctc_server \
-		--restart always \
-  	--log-driver syslog \
-		-e PG_HOST_URL=lctc-postgres \
-		--network=infra_lctc_net \
-    --mount type=bind,source=<PATH_TO_CONFIG>,target=/config.yml \
-		-p 8080:8080 \
-		-d \
-    lctc:1.0;
-` <br>
-
+Run lctc_server image. Replace <PATH_TO_CONFIG> with the path to the config file :
+```bash
+docker stop lctc_server;
+docker rm lctc_server;
+docker run \
+  --name lctc_server \
+  --restart always \
+  --log-driver syslog \
+  -e PG_HOST_URL=lctc-postgres \
+  --network=infra_lctc_net \
+  --mount type=bind,source=<PATH_TO_CONFIG>,target=/config.yml \
+  -p 8080:8080 \
+  -d \
+  lctc:1.0;
+```
 Build the front end            ` cd app; yarn install; ` <br>
 Start the front end            ` yarn run start ` <br>
 Open  localhost:8071 in your browser
